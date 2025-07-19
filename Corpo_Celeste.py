@@ -9,8 +9,11 @@ class Corpo_Celeste:
         pos_y,
         vel_x=0.0,
         vel_y=0.0,
+<<<<<<< HEAD
         abg=True,
         awg=True,
+=======
+>>>>>>> 08e36ab (Final)
     ):
         self.massa = massa
         self.raio = raio
@@ -20,10 +23,13 @@ class Corpo_Celeste:
         self.pos_y = float(pos_y)
         self.vel_x = float(vel_x)
         self.vel_y = float(vel_y)
+<<<<<<< HEAD
         # abg - affected by gravity, se esse corpo celeste vai ter sua aceleração afetada pela gravidade. Padrão False
         self.abg = abg
         # awg - affect with gravity, se esse corpo celeste vai afetar a aceleração dos outros. Padrão True
         self.awg = awg
+=======
+>>>>>>> 08e36ab (Final)
         self.trace = []
 
     # essa funcao é pro equacoes_movimento

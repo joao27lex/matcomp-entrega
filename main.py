@@ -3,8 +3,11 @@ import pandas as pd
 from CubicSplineCustom import CubicSplineCustom
 from Universo import Universo
 
+<<<<<<< HEAD
 # === UTILITÁRIOS MATEMÁTICOS ===
 
+=======
+>>>>>>> 08e36ab (Final)
 
 def refinar_tempo_interceptacao_newton(spline_x, spline_y, v_proj, p0_x, p0_y, t0, max_iter=20, tol=1e-3):
     def f(t):
@@ -27,16 +30,23 @@ def refinar_tempo_interceptacao_newton(spline_x, spline_y, v_proj, p0_x, p0_y, t
             break
         t_new = t - ft / dft
         if abs(t_new - t) < tol:
+<<<<<<< HEAD
             print(f"[INFO] returning t_new = {t_new}  ;; from refinar_tempo_interceptacao_newton")
+=======
+            #print(f"[INFO] returning t_new = {t_new} | from refinar_tempo_interceptacao_newton")
+>>>>>>> 08e36ab (Final)
             return t_new
         t = t_new
     print("[WARN] Newton-Raphson não convergiu após", max_iter, "iterações.")
     return t
 
 
+<<<<<<< HEAD
 # === SIMULAÇÕES ===
 
 
+=======
+>>>>>>> 08e36ab (Final)
 def simular_projetil_com_newton(
     posicao_x_asteroide,
     posicao_y_asteroide,
@@ -47,7 +57,11 @@ def simular_projetil_com_newton(
     spline_x,
     spline_y,
 ):
+<<<<<<< HEAD
     print("[INFO] COMECOU: simular_projetil_com_newton")
+=======
+    
+>>>>>>> 08e36ab (Final)
     raio_do_planeta = 6.371e6
     tempo_impacto = None
     for i in range(len(posicao_x_asteroide)):
@@ -56,6 +70,7 @@ def simular_projetil_com_newton(
         #print(f"[INFO] Posicao asteroide x: {posicao_x_asteroide[i]}, Posicao asteroide y: {posicao_y_asteroide[i]}")
         if dist <= raio_do_planeta:
             tempo_impacto = tempos_asteroide[i]
+<<<<<<< HEAD
             print(f"[INFO] Dist: {dist}")
             print("[INFO] Tempo_impacto exist")
             break
@@ -63,6 +78,15 @@ def simular_projetil_com_newton(
         print("[INFO] Tempo_impacto is None")
         tempo_impacto = tempos_asteroide[-1]
     print(f"[INFO] Tempo_impacto: {tempo_impacto}")
+=======
+            #print(f"[INFO] Dist: {dist}")
+            #print("[INFO] Tempo_impacto exist")
+            break
+    if tempo_impacto is None:
+        #print("[INFO] Tempo_impacto is None")
+        tempo_impacto = tempos_asteroide[-1]
+    #print(f"[INFO] Tempo_impacto: {tempo_impacto}")
+>>>>>>> 08e36ab (Final)
 
     melhor_ponto = None
     melhor_t = None
@@ -109,6 +133,7 @@ def simular_projetil_com_newton(
 
     return pd.DataFrame({"x_proj": x_proj, "y_proj": y_proj, "tempo": t_proj})
 
+<<<<<<< HEAD
 
 # === EXECUÇÃO PRINCIPAL ===
 
@@ -117,6 +142,14 @@ if __name__ == "__main__":
     print("[INFO] Criou Universo")
     solucao = universo.simular()
     print("[INFO] universo.simular()")
+=======
+    
+
+
+if __name__ == "__main__":
+    universo = Universo()
+    solucao = universo.simular()
+>>>>>>> 08e36ab (Final)
 
     terra = next(c for c in universo.corpos_celestes if c.name == "Terra")
     terra_x0, terra_y0 = terra.trace[0]
@@ -126,12 +159,17 @@ if __name__ == "__main__":
     trajetoria_y = [p[1] for p in asteroide.trace]
     lista_tempos = np.linspace(0, universo.duracao, len(trajetoria_x))
 
+<<<<<<< HEAD
     print("[INFO] pre cubic spline")
     spline_real_x = CubicSplineCustom(lista_tempos, trajetoria_x)
     spline_real_y = CubicSplineCustom(lista_tempos, trajetoria_y)
     print("[INFO] pos cubic spline")
     
     #quero tirar a parte dele prever colisao
+=======
+    spline_real_x = CubicSplineCustom(lista_tempos, trajetoria_x)
+    spline_real_y = CubicSplineCustom(lista_tempos, trajetoria_y)
+>>>>>>> 08e36ab (Final)
 
     df_trajetoria_projetil = None
 
@@ -140,7 +178,11 @@ if __name__ == "__main__":
         posicao_y_asteroide=trajetoria_y,
         tempos_asteroide=lista_tempos,
         #velocidade_projetil=3e5,
+<<<<<<< HEAD
         velocidade_projetil=3e3,
+=======
+        velocidade_projetil=5e4,
+>>>>>>> 08e36ab (Final)
         po_x=terra_x0,
         po_y=terra_y0,
         spline_x=spline_real_x,
