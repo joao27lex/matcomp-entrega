@@ -2,10 +2,7 @@ import numpy as np
 import matplotlib as plt
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-<<<<<<< HEAD
-=======
 import random
->>>>>>> 08e36ab (Final)
 
 from Corpo_Celeste import Corpo_Celeste
 from RK4Solver import RK4Solver
@@ -33,10 +30,7 @@ class Universo:
         self.fixed_body_index = 0
         self.corpos_celestes.append(self.Sol)
 
-<<<<<<< HEAD
-=======
         #a forma como marte foi feito seria um "padrão" pra se fazer todos os outros planetas, deixamos ele aqui como exemplo
->>>>>>> 08e36ab (Final)
         # === Marte ===
         raio_orbita_marte = 2.279e11
         angulo_rad = np.deg2rad(45)
@@ -79,19 +73,11 @@ class Universo:
         massa_asteroide = 1e15
         raio_asteroide = 5e2
         self.Asteroide = Corpo_Celeste(massa = massa_asteroide, raio=raio_asteroide, color='dimgray', name='Asteroide', pos_x=pos_x, pos_y=pos_y)
-<<<<<<< HEAD
-        #talvez fazer uma velocidade aleatoria aqui.
-        self.Asteroide.vel_x = 1e2
-        self.Asteroide.vel_y = 1e2
-        #self.Asteroide.vel_x = -3e4
-        #self.Asteroide.vel_y = -3e4
-=======
         #daria pra botar uma velocidade aleatoria aqui
         #self.Asteroide.vel_x = 1e3
         #self.Asteroide.vel_y = 1e3
         self.Asteroide.vel_x = random.uniform(-5e4, 5e4)
         self.Asteroide.vel_y = random.uniform(-5e4, 5e4)
->>>>>>> 08e36ab (Final)
         self.corpos_names.append(self.Asteroide.name)
         self.corpos_massas.append(self.Asteroide.massa)
         self.asteroide_index = len(self.corpos_celestes)
@@ -107,10 +93,7 @@ class Universo:
                 y0.extend(estado)
         return np.array(y0)
     
-<<<<<<< HEAD
-=======
     
->>>>>>> 08e36ab (Final)
     def criar_plot(self, ax):
         ax.set_xlim(-self.limite_x, self.limite_x)
         ax.set_ylim(-self.limite_y, self.limite_y)
@@ -120,10 +103,7 @@ class Universo:
         ax.set_xlabel("X (m)")
         ax.set_ylabel("Y (m)")
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 08e36ab (Final)
     def plotar_corpos_celestes(self, ax):
 
         for cc in self.corpos_celestes:
@@ -150,10 +130,7 @@ class Universo:
         plt.show()
         return posicao if len(posicao) == 2 else None
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 08e36ab (Final)
     # equacoes_movimento_setup
     def equacoes_movimento_setup(self, y):
         all_positions = []
@@ -174,10 +151,7 @@ class Universo:
         dydt = np.zeros_like(y)
         return all_positions, all_velocities, dydt
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 08e36ab (Final)
     # tem que deixar t aqui pelo solve_ivp
     def equacoes_movimento(self, t, y):
         all_positions, all_velocities, dydt = self.equacoes_movimento_setup(y)
@@ -233,10 +207,6 @@ class Universo:
         self.y0 = self.get_y0()
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 08e36ab (Final)
     def simular(self):
         self.simular_setup()
         t_eval = np.linspace(0, self.duracao, 2000)
@@ -257,29 +227,6 @@ class Universo:
                 self.corpos_celestes[i].trace.append((state["pos_x"], state["pos_y"]))
 
         return solucao_array
-<<<<<<< HEAD
-
-
-    def animar(self, solucao_array, df_trajetoria_projetil,):
-        
-        if solucao_array is None:
-            print("[ERRO] solucao_array chegou em universo.animar() vazio")
-            return
-        
-        #fig, ax = plt.subplots(figsize=(8, 8))
-        fig, ax = plt.subplots(figsize=(15, 8))
-        self.criar_plot(ax)
-
-
-        # === Projétil ===
-        if df_trajetoria_projetil is not None:
-            print("[DEBUG] Projétil carregado com sucesso")
-            (linha_proj,) = ax.plot([], [], "--", color="green", lw=2, label="Projétil")
-            (ponto_proj,) = ax.plot([], [], "o", color="green", markersize=6)
-        else:
-            print("[ERRO] df_trajetoria_projetil é None dentro da função animar!")
-            linha_proj, ponto_proj = None, None
-=======
     
 
 
@@ -308,74 +255,20 @@ class Universo:
             t_intercept_end = proj_times[-1] 
         else:
             print("[ERRO] df_trajetoria_projetil é None dentro da função animar!")
->>>>>>> 08e36ab (Final)
 
 
         linhas = []
         pontos = []
         for cc in self.corpos_celestes:
-<<<<<<< HEAD
-            (linha,) = ax.plot([], [], "-", lw=2, label=f"{cc.name} Trajetoria", color=cc.color)
-            if cc.name == "Lua":
-                (ponto,) = ax.plot([],[],"o",markersize=6,label=f"{cc.name}",markerfacecolor=cc.color,markeredgecolor="black",markeredgewidth=1.0,)
-            else:
-                (ponto,) = ax.plot([],[],"o",markersize=12,label=f"{cc.name}",markerfacecolor=cc.color,)
-=======
             (linha,) = ax.plot([], [], "-", lw=1, color=cc.color, alpha=0.5)
             if cc.name == "Lua":
                 (ponto,) = ax.plot([],[],"o",markersize=6,label=f"{cc.name}",markerfacecolor=cc.color,markeredgecolor="black",markeredgewidth=1.0)
             else:
                 (ponto,) = ax.plot([],[],"o",markersize=12,label=f"{cc.name}",markerfacecolor=cc.color)
->>>>>>> 08e36ab (Final)
             linhas.append(linha)
             pontos.append(ponto)
 
         def update(frame):
-<<<<<<< HEAD
-            current_states = self.get_current_state(solucao_array[frame])
-            for i, cc in enumerate(self.corpos_celestes):
-                cc.pos_x = current_states[i]["pos_x"]
-                cc.pos_y = current_states[i]["pos_y"]
-                cc.vel_x = current_states[i]["vel_x"]
-                cc.vel_y = current_states[i]["vel_y"]
-                linhas[i].set_data([p[0] for p in cc.trace[: frame + 1]],[p[1] for p in cc.trace[: frame + 1]],)
-                pontos[i].set_data([cc.pos_x], [cc.pos_y])
-
-            elementos_proj = []
-            try:
-                if (
-                    linha_proj is not None
-                    and ponto_proj is not None
-                    and df_trajetoria_projetil is not None
-                ):
-                    if frame < len(df_trajetoria_projetil):
-                        linha_proj.set_data(
-                            df_trajetoria_projetil["x_proj"][: frame + 1],
-                            df_trajetoria_projetil["y_proj"][: frame + 1],
-                        )
-                        ponto_proj.set_data(
-                            [df_trajetoria_projetil["x_proj"][frame]],
-                            [df_trajetoria_projetil["y_proj"][frame]],
-                        )
-                        elementos_proj = [linha_proj, ponto_proj]
-            except Exception as e:
-                print("[ERRO] Projétil:", e)
-
-
-            return linhas + pontos + elementos_proj
-
-        anim = FuncAnimation(fig,update,frames=len(solucao_array),interval=self.intervalo_animacao,blit=False,repeat=False,)
-        plt.legend()
-        plt.show()
-
-    # isso aqui eh statico ainda, acho
-    def plotar_estatico(self):
-        fig, ax = plt.subplots(figsize=(8, 8))
-        self.plotar_corpos_celestes(ax)
-        self.criar_plot(ax)
-        plt.legend()
-        plt.show()
-=======
 
             current_t = t_eval[frame]
 
@@ -406,4 +299,3 @@ class Universo:
         plt.legend()
         plt.show()
 
->>>>>>> 08e36ab (Final)
